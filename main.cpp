@@ -8,7 +8,7 @@ using namespace std;
 // publicar los cambios a GIT
 
 int main(){
-    cout<<"Hola mundo probando 123 pa los dominos";
+    cout<<"Hola mundo";
 
 
 
