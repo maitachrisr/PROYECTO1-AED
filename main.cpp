@@ -1,6 +1,5 @@
 #include <iostream>
 #include "domino_lib.h" 
-#include <limits> // Para limpiar cin
 
 using namespace std;
 
@@ -509,7 +508,6 @@ int manejarTurnoJugador(JuegoDomino& juego) {
         cout << "\nSelecciona el número de la ficha a jugar: ";
         if (!(cin >> indiceFicha)) {
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             indiceFicha = -1;
         }
     }
@@ -527,7 +525,6 @@ int manejarTurnoJugador(JuegoDomino& juego) {
                 cout << "¿En qué extremo quieres jugar? (1: Izquierda, 2: Derecha): ";
                 if (!(cin >> extremoElegido)) {
                     cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     extremoElegido = 0;
                 }
             }
@@ -563,7 +560,6 @@ int main() {
         cout << "Introduce el número de jugadores (2 a 4): ";
         if (!(cin >> numPlayers)) {
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             numPlayers = 0;
         } else if (numPlayers < 2 || numPlayers > 4) {
             cout << "Número de jugadores no permitido. Debe ser entre 2 y 4." << endl;
