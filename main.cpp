@@ -140,7 +140,7 @@ void reiniciarEstadoRonda(JuegoDomino& juego) {
 // ---------------------------------------------------------------------
 
 // muestra la ficha en formato [l1|l2]
-void mostrarFicha(FichaDomino ficha) { 
+void mostrarFicha(FichaDomino ficha) {
     if (ficha.lado1 == -1) {
         cout << "(N/A)";
         return;
@@ -149,8 +149,8 @@ void mostrarFicha(FichaDomino ficha) {
 }
 
 // muestra todas las fichas en la mano del jugador con su índice
-void mostrarMano(const Jugador& jugador) { 
-    cout << jugador.nombre << "'s Mano (" << jugador.contadorFichas << " fichas): ";
+void mostrarMano(const Jugador& jugador) {
+    cout << "La mano de " << jugador.nombre << " --- (" << jugador.contadorFichas << " fichas): ";
     int indice = 1;
     Node* actual = jugador.cabezaFichas;
     while (actual != nullptr) {
@@ -159,7 +159,7 @@ void mostrarMano(const Jugador& jugador) {
         cout << " ";
         actual = actual->siguiente;
     }
-    cout << endl;
+    cout << "\n" << "\n";
 }
 
 // muestra toda la cadena de fichas en la mesa
@@ -209,9 +209,9 @@ int jugarRonda(JuegoDomino& juego) {
     reiniciarEstadoRonda(juego);
     juego.rondasJugadas++;
 
-    cout << "\n\n===============================================" << endl;
-    cout << "=========== INICIO DE RONDA #" << juego.rondasJugadas << " ===========" << endl;
-    cout << "===============================================" << endl;
+    cout << "\n\n===============================================" << "\n";
+    cout << "=========== INICIO DE RONDA #" << juego.rondasJugadas << " ===========" << "\n";
+    cout << "===============================================" << "\n";
     
     int ganadorRonda = -1;
     juego.indiceJugadorActual = determinarJugadorInicial(juego);
@@ -220,11 +220,11 @@ int jugarRonda(JuegoDomino& juego) {
         FichaDomino fichaInicial = jugarFichaInicial(juego, juego.indiceJugadorActual);
         cout << "\n¡" << juego.jugadores[juego.indiceJugadorActual].nombre << " inicia con ";
         mostrarFicha(fichaInicial);
-        cout << "!" << endl;
+        cout << "!" << "\n" << "\n";
         // el turno pasa al siguiente jugador después de la jugada inicial
         juego.indiceJugadorActual = (juego.indiceJugadorActual + 1) % juego.numJugadores; 
     } else {
-        cerr << "Error: No se pudo determinar el jugador inicial." << endl;
+        cerr << "Error: No se pudo determinar el jugador inicial." << "\n";
         return -1;
     }
 
@@ -236,7 +236,7 @@ int jugarRonda(JuegoDomino& juego) {
 
         // 1. condición de victoria (se quedó sin fichas)
         if (jugadorActual.contadorFichas == 0) {
-            cout << "\n*** ¡FIN DE RONDA! " << jugadorActual.nombre << " ha jugado su última ficha. ***" << endl;
+            cout << "\n*** ¡FIN DE RONDA! " << jugadorActual.nombre << " ha jugado su última ficha. ***" << "\n";
             ganadorRonda = juego.indiceJugadorActual;
             rondaFinalizada = true;
         }
@@ -250,26 +250,26 @@ int jugarRonda(JuegoDomino& juego) {
         }
         
         if (contadorPasadas == juego.numJugadores) {
-            cout << "\n*** ¡FIN DE RONDA! Se ha producido una **TRANCA** (todos pasaron). ***" << endl;
+            cout << "\n*** ¡FIN DE RONDA! Se ha producido una **TRANCA** (todos pasaron). ***" << "\n";
             
             bool empate = false;
             ganadorRonda = verificarGanadorTranca(juego, empate);
             
             if (empate || ganadorRonda == -1) {
-                cout << "¡Hay un empate en la tranca o no hay un ganador claro!" << endl;
+                cout << "¡Hay un empate en la tranca o no hay un ganador claro!" << "\n";
                 ganadorRonda = -1; 
             } else {
-                cout << juego.jugadores[ganadorRonda].nombre << " gana la tranca con el menor puntaje restante." << endl;
+                cout << juego.jugadores[ganadorRonda].nombre << " gana la tranca con el menor puntaje restante." << "\n";
             }
             
             rondaFinalizada = true;
         }
         
         if (rondaFinalizada) {
-            cout << "\n--- Suma de Puntos de la Ronda ---" << endl;
+            cout << "\n--- Suma de Puntos de la Ronda ---" << "\n";
             for (int i = 0; i < juego.numJugadores; ++i) {
                 int puntuacion = puntuarManoJugador(juego.jugadores[i]);
-                cout << juego.jugadores[i].nombre << " sumó " << puntuacion << " puntos. Total Acumulado: " << juego.jugadores[i].puntuacionTotal << endl;
+                cout << juego.jugadores[i].nombre << " sumó " << puntuacion << " puntos. Total Acumulado: " << juego.jugadores[i].puntuacionTotal << "\n";
             }
         }
         
@@ -323,17 +323,17 @@ void iniciarJuego(JuegoDomino& juego) {
         }
     }
     
-    cout << "\n\n===============================================" << endl;
-    cout << "============= ¡FIN DE LA PARTIDA! =============" << endl;
-    cout << "===============================================" << endl;
+    cout << "\n\n===============================================" << "\n";
+    cout << "============= ¡FIN DE LA PARTIDA! =============" << "\n";
+    cout << "===============================================" << "\n";
     
     int ganadorGeneral = obtenerGanadorGeneral(juego);
     
     if (ganadorGeneral != -1) {
         int puntuacionFinal = juego.jugadores[ganadorGeneral].puntuacionTotal;
-        cout << "\n*** ¡EL GANADOR ES " << juego.jugadores[ganadorGeneral].nombre << " con " << puntuacionFinal << " puntos! ***" << endl;
+        cout << "\n*** ¡EL GANADOR ES " << juego.jugadores[ganadorGeneral].nombre << " con " << puntuacionFinal << " puntos! ***" << "\n";
     } else {
-        cout << "La partida terminó en un empate total o no hubo un ganador claro." << endl;
+        cout << "La partida terminó en un empate total o no hubo un ganador claro." << "\n";
     }
 }
 
@@ -456,11 +456,12 @@ int manejarTurnoJugador(JuegoDomino& juego) {
     
     int valorIzquierdo = obtenerValorExtremoIzquierdo(juego.cabezaMesa);
     int valorDerecho = obtenerValorExtremoDerecho(juego.colaMesa);
+
+    cout << "Cadena: "; mostrarCadenaMesa(juego); cout << "\n" << "\n";
     
-    cout << "\n--- Turno de " << jugadorActual.nombre << " ---" << endl;
-    cout << "Cadena: (Izquierda " << valorIzquierdo << ") ";
-    mostrarCadenaMesa(juego);
-    cout << " (Derecha " << valorDerecho << ")" << endl;
+    cout << "\n--- Turno de " << jugadorActual.nombre << " ---" << "\n";
+    //cout << "Cadena: (I: " << // valorIzquierdo << "): ";
+    //cout << " (D: " << valorDerecho << ")" << "\n";
     
     mostrarMano(jugadorActual);
     
@@ -470,26 +471,26 @@ int manejarTurnoJugador(JuegoDomino& juego) {
     // logica de 'pasar' o 'robar del pozo'
     if (contadorJugables == 0) {
         if (juego.numJugadores == 4) {
-            cout << jugadorActual.nombre << " no tiene jugadas. **PASA** su turno." << endl;
+            cout << jugadorActual.nombre << " no tiene jugadas. **PASA** su turno." << "\n";
             jugadorActual.haPasado = true;
             return 0; 
         } else {
-            cout << jugadorActual.nombre << " no tiene jugadas y debe tomar del pozo..." << endl;
+            cout << jugadorActual.nombre << " no tiene jugadas y debe tomar del pozo..." << "\n";
             
             if (intentarRobarPozo(juego, jugadorActual, valorIzquierdo, valorDerecho)) {
                 cout << "Ficha tomada: ";
                 mostrarFicha(juego.ultimaFichaJugada);
-                cout << ". ¡Es jugable! Intenta jugar ahora." << endl;
+                cout << ". ¡Es jugable! Intenta jugar ahora." << "\n";
 
                 contadorJugables = encontrarFichasJugables(jugadorActual, valorIzquierdo, valorDerecho, indicesJugables);
                 
                 if (contadorJugables == 0) {
-                    cout << jugadorActual.nombre << " aún no puede jugar. Pasa." << endl;
+                    cout << jugadorActual.nombre << " aún no puede jugar. Pasa." << "\n";
                     jugadorActual.haPasado = true;
                     return 0; 
                 }
             } else {
-                cout << "El pozo se ha agotado. **PASA** su turno." << endl;
+                cout << "El pozo se ha agotado. **PASA** su turno." << "\n";
                 jugadorActual.haPasado = true;
                 return 0;
             }
@@ -539,13 +540,17 @@ int manejarTurnoJugador(JuegoDomino& juego) {
     } else {
         return -1;
     }
+
+    cout << "\n" << "===============================================" << "\n" << "\n";
     
     FichaDomino fichaJugada = ejecutarJugada(juego, jugadorActual, indiceFicha, extremoElegido);
     
-    cout << jugadorActual.nombre << " juega ";
-    mostrarFicha(fichaJugada);
-    cout << " al extremo " << (extremoElegido == 1 ? "izquierdo" : "derecho") << "." << endl;
-
+    cout << jugadorActual.nombre << " juega "; mostrarFicha(fichaJugada); cout << " al extremo ";
+    if (extremoElegido == 1) {
+        cout << "izquierdo" << "." << "\n" << "\n";;
+    } else {
+        cout << "derecho" << "." << "\n" << "\n";;
+    }
     return 1;
 }
 
@@ -556,20 +561,21 @@ int main() {
 
     // 1. configuración de jugadores
     while (numPlayers < 2 || numPlayers > 4) {
-        cout << "--- Juego de Dominó ---" << endl;
+        cout << "--- Juego de Dominó ---" << "\n";
         cout << "Introduce el número de jugadores (2 a 4): ";
         if (!(cin >> numPlayers)) {
             cin.clear();
+            cin.ignore(256, '\n');
             numPlayers = 0;
         } else if (numPlayers < 2 || numPlayers > 4) {
-            cout << "Número de jugadores no permitido. Debe ser entre 2 y 4." << endl;
+            cout << "Número de jugadores no permitido. Debe ser entre 2 y 4." << "\n";
         }
     }
 
     JuegoDomino juego;
     juego.numJugadores = numPlayers;
 
-    cout << "--- Nombres de Jugadores ---" << endl;
+    cout << "--- Nombres de Jugadores ---" << "\n";
     for (int i = 0; i < juego.numJugadores; ++i) {
         cout << "Introduce el nombre del Jugador " << i + 1 << ": ";
         cin >> juego.jugadores[i].nombre; 
